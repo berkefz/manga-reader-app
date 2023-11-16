@@ -1,0 +1,92 @@
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        ViewPager viewPager = findViewById(R.id.view_pager);
+        viewPager.setAdapter(new SectionsPagerAdapter(getSupportFragmentManager()));
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.action_manga:
+                    viewPager.setCurrentItem(0);
+                    return true;
+                case R.id.action_comments:
+                    viewPager.setCurrentItem(1);
+                    return true;
+                case R.id.action_news:
+                    viewPager.setCurrentItem(2);
+                    return true;
+            }
+            return false;
+        });
+    }
+}
+
+public class SectionsPagerAdapter extends FragmentPagerAdapter {
+
+    public SectionsPagerAdapter(FragmentManager fm) {
+        super(fm);
+    }
+
+    @Override
+    public Fragment getItem(int position) {
+        switch (position) {
+            case 0:
+                return new MangaFragment();
+            case 1:
+                return new CommentsFragment();
+            case 2:
+                return new NewsFragment();
+        }
+        return null;
+    }
+
+    @Override
+    public int getCount() {
+        return 3;
+    }
+}
+
+public class MangaFragment extends Fragment {
+
+    public MangaFragment() {
+// Required empty public constructo
+    }
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_manga, container, false);
+    }
+}
+
+public class CommentsFragment extends Fragment {
+    public CommentsFragment() {
+}
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_comments, container, false);
+    }
+}
+
+public class NewsFragment extends Fragment {
+
+    public NewsFragment() {
+    }
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_news, container, false);
+    }
+}
+
